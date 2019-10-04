@@ -1,0 +1,12 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "json-server --port 3030 --watch db.json"
+  },
+  "dependencies": {
+    "json-server": "^0.15.0"
+  }
+}
