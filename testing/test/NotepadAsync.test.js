@@ -5,9 +5,9 @@ const initialNotes = require('./db');
 const { getNotes, addNotes, delNotes } = require('../src/api');
 
 //  =================== get=========================  //
-describe('save note', () => {
+describe('get notes', () => {
   beforeEach(() => {
-    console.log('test save note start ');
+    console.log('test get notes start ');
   });
   test(' get notes', async () => {
     const init = await getNotes();
