@@ -4,24 +4,26 @@ const initialNotes = require('./db');
 
 const { getNotes, addNotes, delNotes } = require('../src/api');
 
-// getNotes().then(console.log)
-
 //  =================== get=========================  //
-test(' get notes', async () => {
-  const init = await getNotes();
-  const notepad = new NotepadAsync(init);
-  expect(notepad._notes).toEqual(initialNotes);
+describe('save note', () => {
+  beforeEach(() => {
+    console.log('test save note start ');
+  });
+  test(' get notes', async () => {
+    const init = await getNotes();
+    const notepad = new NotepadAsync(init);
+    expect(notepad._notes).toEqual(initialNotes);
+  });
 });
-
 //  =================== save =========================  //
 describe('save note', () => {
-  beforeAll(() => {
+  beforeEach(() => {
     console.log('test save note start ');
   });
 
   test(' save note', () => {
     let target, title, body, priority;
-
+   
     const notepad = new NotepadAsync();
     ({ title, body, priority } = initialNotes[4]);
     target = {
@@ -43,7 +45,7 @@ describe('save note', () => {
     ).resolves.toEqual(target);
   });
 
-  afterAll(() => {
+  afterEach(() => {
     getNotes().then(data => {
       if (data.length > 0) {
         const { id } = data[data.length - 1];
@@ -54,8 +56,7 @@ describe('save note', () => {
 });
 //  =================== delete =========================  //
 describe('delete note', () => {
-    beforeAll(() => {
-      // console.log('test delete note start ');
+    beforeEach(() => {
       const note = {
         title: 'wait',
         body: 'qweqwe',
@@ -66,17 +67,15 @@ describe('delete note', () => {
       })
     });
 
-    test(' delete note', () => {
-//
-      const notepad = new NotepadAsync(initialNotes);
+    test(' delete note', async () => {
+      const init = await getNotes();
+      console.log(init);
+      const length = init.length;
+      const notepad = new NotepadAsync(init);
       ({ id } = notepad._notes[notepad._notes.length - 1]);
-      // console.log(notepad._notes[notepad._notes.length - 1]);
-      target = {
-        id
-      };
-// //
-//       expect(
-//         notepad.deleteNote(target).then()
-//       ).resolves.toEqual(initialNotes[5]);
+      console.log(id);
+      expect(
+        notepad.deleteNote(id).then(() => notepad._notes.length)
+      ).resolves.toBe(length - 1);
     });
 });
