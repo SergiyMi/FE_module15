@@ -15,6 +15,7 @@ describe('get notes', () => {
     expect(notepad._notes).toEqual(initialNotes);
   });
 });
+
 //  =================== save =========================  //
 describe('save note', () => {
   beforeEach(() => {
@@ -54,6 +55,7 @@ describe('save note', () => {
     });
   });
 });
+
 //  =================== delete =========================  //
 describe('delete note', () => {
     beforeEach(() => {
